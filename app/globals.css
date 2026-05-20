@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #ff2d95;
+  --color-secondary: #00e5ff;
+  --color-accent: #7b2cbf;
+  --color-space: #0a0a0a;
+  --color-soft: #f8f1ff;
+  --color-glass: rgb(255 255 255 / 0.08);
+  --color-glass-border: rgb(255 255 255 / 0.18);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --background-image-brand-gradient: linear-gradient(
+    135deg,
+    #ff2d95 0%,
+    #00e5ff 50%,
+    #7b2cbf 100%
+  );
+  --background-image-hero-glow: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    rgb(255 45 149 / 0.35),
+    transparent 70%
+  );
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-space text-soft antialiased;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgb(255 45 149 / 0.35);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background-image: var(--background-image-brand-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass-card {
+    background: rgb(255 255 255 / 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgb(255 255 255 / 0.12);
+  }
+
+  .neon-border {
+    position: relative;
+  }
+
+  .neon-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--background-image-brand-gradient);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .hero-mesh {
+    background-image:
+      var(--background-image-hero-glow),
+      radial-gradient(circle at 20% 80%, rgb(123 44 191 / 0.2), transparent 40%),
+      radial-gradient(circle at 80% 20%, rgb(0 229 255 / 0.15), transparent 40%);
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
